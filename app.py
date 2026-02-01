@@ -62,31 +62,17 @@ if 'active_alerts' not in st.session_state: st.session_state.active_alerts = [] 
 
 # ---------------- CSS ----------------
 # ---------------- THEME CONFIGURATION ----------------
-if 'theme' not in st.session_state: 
-    st.session_state.theme = 'Professional Dark'
-
-def get_theme_css(theme):
-    # PALETTES
-    if theme == 'Professional Dark':
-        bg_color = "#0f1116"
-        card_bg = "rgba(255, 255, 255, 0.03)"
-        text_color = "#e2e8f0"
-        accent_color = "#14b8a6" # Teal
-        secondary_bg = "#02040a"
-        border_color = "rgba(255, 255, 255, 0.08)"
-        muted_text = "#94a3b8"
-        shadow = "0 4px 20px rgba(0,0,0,0.5)"
-        input_bg = "rgba(15, 23, 42, 0.6)"
-    else: # Clinical Light
-        bg_color = "#f8fafc"
-        card_bg = "#ffffff"
-        text_color = "#1e293b"
-        accent_color = "#2563eb" # Royal Blue
-        secondary_bg = "#f1f5f9"
-        border_color = "#e2e8f0"
-        muted_text = "#64748b"
-        shadow = "0 4px 20px rgba(0,0,0,0.05)"
-        input_bg = "#ffffff"
+# Enforced Professional Dark Theme
+def get_theme_css():
+    bg_color = "#0f1116"
+    card_bg = "rgba(255, 255, 255, 0.03)"
+    text_color = "#e2e8f0"
+    accent_color = "#14b8a6" # Teal
+    secondary_bg = "#02040a"
+    border_color = "rgba(255, 255, 255, 0.08)"
+    muted_text = "#94a3b8"
+    shadow = "0 4px 20px rgba(0,0,0,0.5)"
+    input_bg = "rgba(15, 23, 42, 0.6)"
 
     return f"""
 <style>
@@ -276,7 +262,7 @@ div[data-testid="stMetricValue"] {{
 </style>
 """
 
-st.markdown(get_theme_css(st.session_state.theme), unsafe_allow_html=True)
+st.markdown(get_theme_css(), unsafe_allow_html=True)
 
 
 
@@ -570,19 +556,6 @@ def main_app():
     # SIDEBAR
     with st.sidebar:
         st.markdown(f"### ⚙️ Settings")
-        
-        # Theme Switcher
-        new_theme = st.radio(
-            "App Theme", 
-            ["Professional Dark", "Clinical Light"],
-            index=0 if st.session_state.theme == "Professional Dark" else 1,
-            horizontal=True
-        )
-        if new_theme != st.session_state.theme:
-            st.session_state.theme = new_theme
-            st.rerun()
-
-        st.markdown("---")
         st.write(f"👤 **{st.session_state.username}**")
         if not st.session_state.device_connected:
             st.warning("🔴 Device Disconnected")
