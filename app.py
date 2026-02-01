@@ -61,209 +61,213 @@ if 'weather_loc' not in st.session_state: st.session_state.weather_loc = "Mumbai
 if 'active_alerts' not in st.session_state: st.session_state.active_alerts = [] # Persistent Alerts
 
 # ---------------- CSS ----------------
-# ---------------- THEME CONFIGURATION ----------------
-# Enforced Professional Dark Theme
-def get_theme_css():
-    bg_color = "#0f1116"
-    card_bg = "rgba(255, 255, 255, 0.03)"
-    text_color = "#e2e8f0"
-    accent_color = "#14b8a6" # Teal
-    secondary_bg = "#02040a"
-    border_color = "rgba(255, 255, 255, 0.08)"
-    muted_text = "#94a3b8"
-    shadow = "0 4px 20px rgba(0,0,0,0.5)"
-    input_bg = "rgba(15, 23, 42, 0.6)"
-
-    return f"""
+st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
-/* GLOBAL SMOOTH TRANSITIONS */
-* {{
-    transition: background-color 0.3s ease, color 0.3s ease;
-}}
+/* GLOBAL */
+.stApp {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #e0e0e0;
+}
 
-/* MAIN APP CONTAINER */
-.stApp {{
-    background-color: {bg_color};
-    font-family: 'Inter', sans-serif;
-    color: {text_color};
-}}
+/* Background Image Overlay */
+.stApp {
+    background-color: #050a14;
+}
 
-/* HEADERS */
-h1, h2, h3, h4, h5, h6 {{
-    color: {text_color} !important;
-    font-weight: 700 !important;
-    font-family: 'Inter', sans-serif;
-}}
-
-/* SIDEBAR */
-[data-testid="stSidebar"] {{
-    background-color: {secondary_bg};
-    border-right: 1px solid {border_color};
-}}
-[data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {{
-    color: {text_color} !important;
-}}
-[data-testid="stSidebar"] p, [data-testid="stSidebar"] span {{
-    color: {muted_text} !important;
-}}
-
-/* BUTTONS */
-button[kind="primary"] {{
-    background: {accent_color} !important;
-    border: none !important;
-    color: white !important;
-    border-radius: 8px !important;
-    font-weight: 600 !important;
-    padding: 0.5rem 1rem !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-}}
-button[kind="primary"]:hover {{
-    opacity: 0.9;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
-}}
-button[kind="secondary"] {{
-    background: transparent !important;
-    border: 1px solid {border_color} !important;
-    color: {text_color} !important;
-    border-radius: 8px !important;
-}}
-
-/* INPUTS */
-div[data-baseweb="input"] {{
-    background-color: {input_bg} !important;
-    border: 1px solid {border_color} !important;
-    border-radius: 8px !important;
-    color: {text_color} !important;
-}}
-input {{
-    color: {text_color} !important;
-}}
-
-/* TABS */
-.stTabs [data-baseweb="tab-list"] {{
-    background-color: {secondary_bg};
-    border-radius: 12px;
-    padding: 4px;
-    border: 1px solid {border_color};
-}}
-.stTabs [data-baseweb="tab"] {{
-    border-radius: 8px !important;
-    color: {muted_text};
-    border: none !important;
-    font-weight: 500;
-}}
-.stTabs [aria-selected="true"] {{
-    background-color: {card_bg} !important;
-    color: {accent_color} !important;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    font-weight: 600;
-}}
-
-/* CARDS (Bento/Metric) */
-.bento-box {{
-    background: {card_bg};
-    border: 1px solid {border_color};
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: {shadow};
-    margin-bottom: 20px;
-}}
-.metric-card {{
-    text-align: center;
-}}
-
-/* METRIC CONTAINERS - Override Streamlit Defaults */
-div[data-testid="stMetric"] {{
-    background: {card_bg};
-    border: 1px solid {border_color};
-    border-radius: 12px;
-    padding: 16px;
-    box-shadow: {shadow};
-}}
-div[data-testid="stMetricLabel"] {{
-    color: {muted_text} !important;
-    font-size: 14px !important;
-}}
-div[data-testid="stMetricValue"] {{
-    color: {text_color} !important;
-    font-size: 28px !important;
-    font-weight: 700 !important;
-}}
-
-/* LOGIN CARD SPECIFIC */
-.login-card {{
-    background: {card_bg};
-    border: 1px solid {border_color};
+/* Login Card Styling - Exact Match */
+.login-card {
+    background: rgba(13, 17, 30, 0.85); /* Darker, deep blue tone */
+    border: 1px solid rgba(50, 60, 90, 0.5);
     border-radius: 24px;
-    padding: 48px;
-    box-shadow: {shadow};
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
     backdrop-filter: blur(20px);
-}}
-.login-title {{
-    font-size: 24px;
-    font-weight: 700;
-    color: {text_color};
-    text-align: center;
-    margin-bottom: 8px;
-}}
-.login-subtitle {{
-    font-size: 15px;
-    color: {accent_color};
-    text-align: center;
-    margin-bottom: 32px;
-    font-weight: 500;
-}}
+}
 
-/* HERO SECTION TEXT */
-.big-hero-title {{
-    font-size: 56px;
-    font-weight: 800;
-    color: {text_color};
-    line-height: 1.1;
-    margin-bottom: 24px;
-    letter-spacing: -0.02em;
-}}
-.hero-desc {{
+.login-title {
     font-size: 20px;
-    color: {muted_text};
-    max-width: 540px;
-    line-height: 1.6;
-}}
-
-/* HEALTH CHECK FORMS */
-.health-check-card {{
-    background: {card_bg};
-    border: 1px solid {border_color};
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 24px;
-}}
-.health-section-header {{
-    color: {accent_color};
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.login-subtitle {
     font-size: 14px;
+    color: #00f2fe; /* Cyan color from image */
+    text-align: center;
+    margin-bottom: 25px;
+}
+.big-hero-title {
+    font-size: 56px;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 20px;
-    border-bottom: 1px solid {border_color};
-    padding-bottom: 12px;
-}}
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 15px;
+}
+.hero-desc {
+    font-size: 18px;
+    color: #94a3b8;
+    max-width: 500px;
+    line-height: 1.6;
+}
 
-/* WEATHER COMPONENTS */
-.weather-title {{ font-size: 13px; font-weight: 600; color: {accent_color}; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }}
-.weather-value-big {{ font-size: 64px; font-weight: 700; color: {text_color}; line-height: 1; }}
-.weather-value-med {{ font-size: 24px; font-weight: 600; color: {text_color}; }}
-.weather-unit {{ font-size: 16px; color: {muted_text}; font-weight: 500; }}
-.weather-sub {{ font-size: 16px; color: {muted_text}; }}
-.metric-icon {{ font-size: 28px; margin-bottom: 12px; color: {accent_color}; }}
+/* Input Fields - Dark Theme */
+div[data-baseweb="input"] {
+    background-color: rgba(30, 41, 59, 0.5) !important; /* Darker input background */
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    color: white !important;
+    padding: 5px;
+}
+div[data-baseweb="input"]:focus-within {
+    border-color: #00f2fe !important;
+    box-shadow: 0 0 0 1px #00f2fe !important;
+    background-color: rgba(30, 41, 59, 0.8) !important;
+}
+input {
+    color: white !important; 
+    font-size: 15px;
+}
+div[data-testid="stForm"] {
+    border: none;
+    padding: 0;
+}
+
+/* Tabs as Pill Toggle */
+.stTabs [data-baseweb="tab-list"] {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 5px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+.stTabs [data-baseweb="tab"] {
+    border-radius: 40px !important;
+    padding: 8px 0px !important;
+    background-color: transparent;
+    color: #94a3b8;
+    border: none !important;
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+}
+.stTabs [aria-selected="true"] {
+    background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%) !important;
+    color: #0b0f19 !important;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
+}
+
+/* Primary Button */
+button[kind="primary"] {
+    background: linear-gradient(90deg, #22d3ee 0%, #0ea5e9 100%);
+    border: none;
+    height: 52px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #0f172a !important; /* Dark text on bright button */
+    margin-top: 15px;
+    width: 100%;
+    transition: all 0.3s;
+}
+button[kind="primary"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(34, 211, 238, 0.3);
+}
+
+/* Helper Text */
+.form-footer {
+    text-align: center; 
+    color: #64748b; 
+    font-size: 13px; 
+    margin-top: 20px;
+}
+
+/* CARDS /* --- BENTO GRID SYSTEM --- */
+.bento-box {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.bento-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+/* Typography */
+.weather-title { font-size: 14px; font-weight: 600; color: #00f2fe; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.weather-value-big { font-size: 64px; font-weight: 800; color: #fff; line-height: 1; }
+.weather-value-med { font-size: 28px; font-weight: 700; color: #fff; }
+.weather-unit { font-size: 16px; color: #9ca3af; font-weight: 500; }
+.weather-sub { font-size: 18px; color: #e0e0e0; }
+
+/* Custom Metric Card */
+.metric-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+}
+.metric-icon { font-size: 32px; margin-bottom: 10px; }
+
+/* Forecast Row */
+.forecast-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.forecast-item:last-child { border-bottom: none; }
+
+/* Tabs Override */
+.stTabs [data-baseweb="tab-list"] { gap: 8px; }
+
+div[data-testid="stMetric"] {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 15px;
+}
+div[data-testid="stMetricLabel"] { color: #00f2fe !important; }
+div[data-testid="stMetricValue"] { color: #ffffff !important; font-size: 24px; }
+244: 
+245: /* Medical Form Styling */
+246: .health-check-card {
+247:     background: rgba(30, 41, 59, 0.4);
+248:     border: 1px solid rgba(255, 255, 255, 0.08);
+249:     border-radius: 16px;
+250:     padding: 25px;
+251:     margin-bottom: 20px;
+252: }
+253: .health-section-header {
+254:     color: #00f2fe;
+255:     font-size: 16px;
+256:     font-weight: 600;
+257:     text-transform: uppercase;
+258:     letter-spacing: 1px;
+259:     margin-bottom: 15px;
+260:     border-bottom: 1px solid rgba(255,255,255,0.1);
+261:     padding-bottom: 8px;
+262: }
 
 </style>
-"""
-
-st.markdown(get_theme_css(), unsafe_allow_html=True)
-
+""", unsafe_allow_html=True)
 
 
 # ---------------- HELPER FUNCTIONS ----------------
@@ -486,6 +490,31 @@ def get_unified_wellness_inputs(profile, form_inputs, device_connected):
 
 
 def login_page():
+    # Load background image
+    import base64
+    def get_base64_of_bin_file(bin_file):
+        try:
+            with open(bin_file, 'rb') as f:
+                data = f.read()
+            return base64.b64encode(data).decode()
+        except Exception:
+            return None
+
+    bin_str = get_base64_of_bin_file("bg_img.png")
+    if bin_str:
+        background_style = f"""
+            <style>
+            .stApp {{
+                background-image: url("data:image/png;base64,{bin_str}");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }}
+            </style>
+        """
+        st.markdown(background_style, unsafe_allow_html=True)
+    
     # Layout
     st.markdown("<br><br>", unsafe_allow_html=True)
     c1, mid, c2 = st.columns([1.4, 0.2, 1]) # Added middle spacer
@@ -507,8 +536,8 @@ def login_page():
         # Header inside card
         st.markdown("""
         <div style="text-align:center; padding-top: 20px; margin-bottom:10px;">
-            <div class="login-title">AI Health Coach</div>
-            <div class="login-subtitle">A Mini Doctor in Your Pocket</div>
+            <div style="font-size:24px; font-weight:700; color:white;">AI Health Coach</div>
+            <div style="font-size:16px; color:#cbe; margin-top:5px; margin-bottom: 25px;">A Mini Doctor in Your Pocket</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -555,7 +584,6 @@ def login_page():
 def main_app():
     # SIDEBAR
     with st.sidebar:
-        st.markdown(f"### ⚙️ Settings")
         st.write(f"👤 **{st.session_state.username}**")
         if not st.session_state.device_connected:
             st.warning("🔴 Device Disconnected")
